@@ -15,7 +15,7 @@ using namespace std;
 
 #define boundaryX WIDTH/2
 #define boundaryY HEIGHT/2
-
+//김은지바보
 vector<SolidSphere> spheres;
 Light* light;
 Line* line;
