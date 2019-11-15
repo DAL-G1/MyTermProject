@@ -1,25 +1,6 @@
 #include "Material.h"
 
-void Material::setColor(Material& mtl){
-	srand((unsigned int)time(NULL));
-	int color = (int)rand()%4;
-	switch (color)
-	{
-	case RED:
-		
-		break;
-	case GREEN:
 
-		break;
-	case BLUE:
-
-		break;
-	case YELLOW:
-
-		break;
-	}
-
-}
 
 
 void Material::setMTL(const Material& mtl) {

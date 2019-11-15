@@ -8,11 +8,6 @@
 class Material
 {
 public:
-	void setCyan(SolidShape3D& sh3d);
-	void setGreen(SolidShape3D& sh3d);
-	void setRed(SolidShape3D& sh3d);
-	void setYellow(SolidShape3D& sh3d);
-
 	void setMTL(const Material& mtl);
 	void setEmission(float r, float g, float b, float a);
 	void setEmission(const float* rgba);
@@ -32,7 +27,6 @@ public:
 	const float* getShininess() const;
 
 private:
-	enum { RED, GREEN, BLUE, YELLOW };
 	float emission[4];
 	float ambient[4];
 	float diffuse[4];

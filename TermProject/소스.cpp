@@ -15,7 +15,6 @@ using namespace std;
 
 #define boundaryX WIDTH/2
 #define boundaryY HEIGHT/2
-//김은지바보
 vector<SolidSphere> spheres;
 Light* light;
 Line* line;
@@ -86,7 +85,6 @@ void init() {
 	sphere1.setCenter(0, -100, 0);
 	sphere1.setVelocity(5, 5, 0);
 	spheres.push_back(sphere1);
-
 }
 
 void idle() {

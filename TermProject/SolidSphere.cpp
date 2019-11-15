@@ -1,6 +1,7 @@
 #include "SolidSphere.h"
 #include <math.h>
 
+
 SolidSphere::SolidSphere(float r, int sl, int st) : SolidShape3D() {
 	properties.setXYZ(r, sl, st);
 }

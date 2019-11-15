@@ -45,11 +45,55 @@ Vector3 SolidShape3D::getVelocity() const {
 void SolidShape3D::move() {
 	center = center + (0.1)*velocity;
 }
+void SolidShape3D::setCyan(){
+	mtl.setAmbient(0.0, 0.05, 0.05, 1);
+	mtl.setDiffuse(0.4, 0.5, 0.5, 1);
+	mtl.setSpecular(0.04, 0.7, 0.7, 1);
+	mtl.setEmission(0.1, 0.1, 0.06, 1);
+	mtl.setShininess(10);
+}
+void SolidShape3D::setGreen() {
+	mtl.setAmbient(0.0, 0.05, 0.0, 1);
+	mtl.setDiffuse(0.4, 0.5, 0.4, 1);
+	mtl.setSpecular(0.04, 0.7, 0.04, 1);
+	mtl.setEmission(0.1, 0.1, 0.06, 1);
+	mtl.setShininess(10);
+}
+void SolidShape3D::setRed() {
+	mtl.setAmbient(0.05, 0.0, 0.0, 1);
+	mtl.setDiffuse(0.5, 0.4, 0.4, 1);
+	mtl.setSpecular(0.7, 0.04, 0.04, 1);
+	mtl.setEmission(0.1, 0.1, 0.06, 1);
+	mtl.setShininess(10);
+}
+void SolidShape3D::setYellow() {
+	mtl.setAmbient(0.05, 0.05, 0.0, 1);
+	mtl.setDiffuse(0.5, 0.5, 0.4, 1);
+	mtl.setSpecular(0.7, 0.7, 0.04, 1);
+	mtl.setEmission(0.1, 0.1, 0.1, 1);
+	mtl.setShininess(10);
+}
 
 void SolidShape3D::setMTL() {
-	mtl.setEmission(0.1, 0.1, 0.1, 1);
-	mtl.setAmbient(0.3, 0.3, 0.3, 1);
-	mtl.setDiffuse(0.5, 0.5, 0.5, 1);
-	mtl.setSpecular(1.0, 1.0, 1.0, 1);
-	mtl.setShininess(10);
+	//여기서 랜덤함수 돌리기
+	
+	srand((unsigned int)time(0));
+	int color = (int)rand() % 4;
+	switch (color)
+	{
+	case RED:
+		setRed();
+		break;
+	case GREEN:
+		setGreen();
+		break;
+	case CYAN:
+		setCyan();
+		break;
+	case YELLOW:
+		setYellow();
+		break;
+		}
+
+
 }

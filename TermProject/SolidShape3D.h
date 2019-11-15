@@ -9,6 +9,11 @@ public:
 	SolidShape3D();
 	SolidShape3D(const SolidShape3D& sh3d);
 
+	void setCyan();
+	void setGreen();
+	void setRed();
+	void setYellow();
+
 	void setCenter(float x, float y, float z);
 	void setCenter(const Vector3& c);
 	Vector3 getCenter() const;
@@ -19,7 +24,9 @@ public:
 	void setMTL();
 	virtual void draw() const = 0;
 
+
 protected:
+	enum { RED, GREEN, CYAN, YELLOW };
 	Vector3 center;
 	Vector3 velocity;
 	Material mtl;
