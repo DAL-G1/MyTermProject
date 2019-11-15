@@ -10,6 +10,7 @@ SolidSphere::SolidSphere(const SolidSphere& sph) : SolidShape3D(sph) {
 	properties = sph.properties;
 }
 
+
 Vector3 SolidSphere::getProperties() const{
 	return properties;
 }
@@ -54,4 +55,7 @@ void SolidSphere::draw() const {
 	glTranslatef(center[0], center[1], center[2]);
 	glutSolidSphere(properties[0], properties[1], properties[2]);
 	glPopMatrix();
+}
+void SolidSphere::shootReady(float x, float y, float z) {
+	setCenter(x, y, z);
 }

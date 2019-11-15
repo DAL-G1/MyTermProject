@@ -141,10 +141,10 @@ typedef unsigned short wchar_t;
 extern "C" {
 #endif
 
-#if defined(_WIN32)
-# ifndef GLUT_BUILDING_LIB
-extern _CRTIMP void __cdecl exit(int);
-# endif
+#if _MSC_VER>= 1200
+	_CRTIMP __declspec(noreturn) void __cdecl exit(int);
+#elif defined(_WIN32) && !defined(GLUT_BUILDING_LIB)
+	extern _CRTIMP void __cdecl exit(int);
 #else
 /* non-Win32 case. */
 /* Define APIENTRY and CALLBACK to nothing if we aren't on Win32. */

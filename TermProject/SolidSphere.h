@@ -11,7 +11,7 @@ public:
 	bool collisionDetection(const SolidSphere& sph);
 	void collisionHandling(SolidSphere& sph);
 	void draw() const;
-	
+	void shootReady(float x, float y, float z);
 
 private:
 	Vector3 properties;

@@ -43,7 +43,7 @@ Vector3 SolidShape3D::getVelocity() const {
 }
 
 void SolidShape3D::move() {
-	center = center + (0.1)*velocity;
+	center = center + (1)*velocity;
 }
 void SolidShape3D::setCyan(){
 	mtl.setAmbient(0.0, 0.05, 0.05, 1);
@@ -76,8 +76,6 @@ void SolidShape3D::setYellow() {
 
 void SolidShape3D::setMTL() {
 	//여기서 랜덤함수 돌리기
-	
-	srand((unsigned int)time(0));
 	int color = (int)rand() % 4;
 	switch (color)
 	{

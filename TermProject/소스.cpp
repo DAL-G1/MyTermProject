@@ -4,20 +4,37 @@
 #include "Light.h"
 #include "Line.h"
 #include <Windows.h>
+#include<math.h>
+#include"arrow.h"
 using namespace std;
-
 #define WIDTH 400
 #define HEIGHT 400
 
 #define ALLWIDTH 400
 #define ALLHEIGHT 600
 
-
 #define boundaryX WIDTH/2
 #define boundaryY HEIGHT/2
+
+#define READYX 0
+#define READYY -250
+#define READYZ 0
+
+#define WAITINGX -155
+#define WAITINGY -260
+#define WAITINGZ 0
+
+#define RAD 0.01745329
+
 vector<SolidSphere> spheres;
 Light* light;
 Line* line;
+Arrow shooter;
+
+
+int option = 0;
+enum { STOP, LEFT, RIGHT, SHOOT };
+vector<SolidSphere>::size_type shooting_num = 0;
 /*
 //back ground 위한 변수들
 GLubyte* LoadDIBitmap(const char* filename, BITMAPINFO** info);
@@ -80,11 +97,20 @@ void init() {
 	line->setPosition1(40.0, 240.0, 0.0);
 	line->setPosition2(160.0, 240.0, 0.0);
 	line->setTime();
-
-	SolidSphere sphere1(15, 100, 100);
-	sphere1.setCenter(0, -100, 0);
-	sphere1.setVelocity(5, 5, 0);
+	
+	srand((unsigned int)time(NULL));
+	SolidSphere sphere1(15, 100, 100); //처음에 READY되어 있는 공
+	sphere1.setCenter(READYX, READYY, READYZ);
 	spheres.push_back(sphere1);
+	
+	SolidSphere sphere2(15, 100, 100); //처음에 WAITING하고 있는 공
+	sphere2.setCenter(WAITINGX, WAITINGY, WAITINGZ);
+	spheres.push_back(sphere2);
+
+	shooter.setAngle(0, 0, 0);
+	shooter.setMTL();
+	shooter.setPosition(0, 0, 0);
+
 }
 
 void idle() {
@@ -101,10 +127,6 @@ void idle() {
 			spheres[i].setVelocity(spheres[i].getVelocity()[0], -spheres[i].getVelocity()[1], spheres[i].getVelocity()[2]);
 		}
 
-		//lower
-		if (-spheres[i].getProperties()[0] + spheres[i].getCenter()[1] < -boundaryY) {
-			spheres[i].setVelocity(spheres[i].getVelocity()[0], -spheres[i].getVelocity()[1], spheres[i].getVelocity()[2]);
-		}
 
 		//right
 		if (spheres[i].getProperties()[0] + spheres[i].getCenter()[0] > boundaryX) {
@@ -124,6 +146,23 @@ void renderScene() {
 	glClearColor(0, 0, 0, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	switch (option) {
+	case RIGHT:
+		if (shooter.getRotateAngle() <= 60)
+			shooter.Rotate(20);
+		option = STOP;
+		break;
+	case LEFT:
+		if (shooter.getRotateAngle() >= -60)
+			shooter.Rotate(-20);
+		option = STOP;
+		break;
+	case SHOOT:
+		option = STOP;
+		break;
+	default:
+		break;
+	}
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-ALLWIDTH/ 2, ALLWIDTH / 2, -ALLHEIGHT/2, ALLHEIGHT / 2, -100.0, 100.0);
@@ -154,7 +193,7 @@ void renderScene() {
 		sph.draw();
 		sph.move();
 	}
-
+	shooter.draw();
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
 	glDisable(GL_LIGHT0);
@@ -165,14 +204,39 @@ void processNormalKeys(unsigned char key, int x, int y) {
 	switch (key) {
 	case 27://esc
 		exit(0);
-	case GLUT_KEY_LEFT:
-		/*if (shooter.getRotateAngle() >= 30)
-			shooter.Rotate(-20);
-	case GLUT_KEY_RIGHT:
-		if (shooter.getRotateAngle() <= 150)
-			shooter.Rotate(20);*/
+	
 	case 32://space Bar
+	{	cout << "shoot" << endl;
+		option = SHOOT;
 		line->setTime();
+
+		//spheres[shooting_num].setVelocity(sin(shooter.getRotateAngle() * RAD), cos(shooter.getRotateAngle() * RAD), 0);
+		spheres.back().setVelocity(sin(shooter.getRotateAngle() * RAD), cos(shooter.getRotateAngle() * RAD), 0);
+		shooting_num = shooting_num + 1;
+		spheres.back().shootReady(READYX, READYY, READYZ);
+		SolidSphere new_sphere(15, 100, 100); //대기하는 곳에 만들어지는 공
+		new_sphere.setCenter(WAITINGX, WAITINGY, WAITINGZ);
+		spheres.push_back(new_sphere); 
+	}
+	default:
+		break;
+	}
+}
+void processSpecialKeys(int key, int x, int y) {
+	cout << "pressed " << key << endl;
+	switch (key) {
+	case GLUT_KEY_LEFT:
+		glutPostRedisplay();
+		cout << "left" << endl;
+
+		option = LEFT;
+		break;
+	case GLUT_KEY_RIGHT:
+		glutPostRedisplay();
+		cout << "right" << endl;
+
+		option = RIGHT;
+		break;
 	default:
 		break;
 	}
@@ -181,6 +245,7 @@ void processNormalKeys(unsigned char key, int x, int y) {
 
 int main(int argc, char** argv) {
 	// init GLUT and create Window
+
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	glutInitWindowPosition(400, 50);
@@ -189,6 +254,7 @@ int main(int argc, char** argv) {
 	init();
 
 	// register callbacks
+	glutSpecialFunc(processSpecialKeys);
 	glutKeyboardFunc(processNormalKeys);
 	glutDisplayFunc(renderScene);
 	glutIdleFunc(idle);
