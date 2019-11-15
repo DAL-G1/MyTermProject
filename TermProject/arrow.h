@@ -9,7 +9,7 @@
 class Arrow {
 public:
 	Arrow();
-	virtual void draw() const;
+	void draw() const;
 	void setAngle(float x, float y, float z);
 	void setMTL();
 	void setPosition(float x, float y, float z);
