@@ -13,10 +13,13 @@ public:
 	Vector3 getPosition2()const;
 	void timeRun();
 	void setTime();
+	int getpass_time();
+	int getline_long();
 
 private:
 	Vector3 position1;
 	Vector3 position2;
 	int itime;
 	int pass_time;
+	int line_long;
 };

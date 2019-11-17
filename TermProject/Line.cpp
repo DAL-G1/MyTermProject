@@ -2,9 +2,11 @@
 
 using namespace std;
 
+
 Line::Line() {};
 void Line::setPosition1(float x, float y, float z) {
 	position1.setXYZ(x, y, z);
+	line_long = 0; //이거 안해주면 line_long 초기화 안되서 걍 시작하자마자 발사됨
 }
 void Line::setPosition2(float x, float y, float z) {
 	position2.setXYZ(x, y, z);
@@ -17,6 +19,7 @@ Vector3 Line::getPosition2()const {
 };
 void Line::setTime() {
 	itime = time(0);
+	
 }
 void Line::timeRun() {
 	pass_time = time(0) - itime;
@@ -25,6 +28,13 @@ void Line::timeRun() {
 	glEnable(GL_LINE);
 	glBegin(GL_LINES);
 		glVertex2f(position1.getXYZ()[0], position1.getXYZ()[1]);
-		glVertex2f(position2.getXYZ()[0] - 4 * pass_time, position2.getXYZ()[1]);
+		glVertex2f(position2.getXYZ()[0]-4*pass_time, position2.getXYZ()[1]);
 	glEnd();
+	line_long = -position1.getXYZ()[0] +(position2.getXYZ()[0] - 4*pass_time);
+}
+int Line::getpass_time() {
+	return pass_time;
+}
+int Line::getline_long() {
+	return line_long;
 }

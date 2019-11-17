@@ -154,6 +154,20 @@ void idle() {
 			spheres[i].setVelocity(-spheres[i].getVelocity()[0], spheres[i].getVelocity()[1], spheres[i].getVelocity()[2]);
 		}
 	}
+
+	if (line->getline_long()<0 ) {
+		cout << "time-over-shoot" << endl;
+		cout << line->getline_long() << endl;
+		option = SHOOT;
+		line->setTime();
+
+		spheres[shooting_num].setVelocity(sin(shooter.getRotateAngle() * RAD), cos(shooter.getRotateAngle() * RAD), 0);
+		shooting_num = shooting_num + 1;
+		spheres.back().shootReady(READYX, READYY, READYZ);
+		SolidSphere new_sphere(20, 100, 100); //대기하는 곳에 만들어지는 공
+		new_sphere.setCenter(WAITINGX, WAITINGY, WAITINGZ);
+		spheres.push_back(new_sphere);
+	}
 	glutPostRedisplay();
 }
 
@@ -179,6 +193,8 @@ void renderScene() {
 	default:
 		break;
 	}
+	
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-ALLWIDTH/ 2, ALLWIDTH / 2, -ALLHEIGHT/2, ALLHEIGHT / 2, -100.0, 100.0);
@@ -224,10 +240,10 @@ void processNormalKeys(unsigned char key, int x, int y) {
 	case 32://space Bar
 	{	cout << "shoot" << endl;
 		option = SHOOT;
-		line->setTime();
 
-		//spheres[shooting_num].setVelocity(sin(shooter.getRotateAngle() * RAD), cos(shooter.getRotateAngle() * RAD), 0);
-		spheres.back().setVelocity(sin(shooter.getRotateAngle() * RAD), cos(shooter.getRotateAngle() * RAD), 0);
+		cout << line->getPosition2()[0] << endl;
+		line->setTime();
+		spheres[shooting_num].setVelocity(sin(shooter.getRotateAngle() * RAD), cos(shooter.getRotateAngle() * RAD), 0);
 		shooting_num = shooting_num + 1;
 		spheres.back().shootReady(READYX, READYY, READYZ);
 		SolidSphere new_sphere(20, 100, 100); //대기하는 곳에 만들어지는 공
@@ -261,7 +277,7 @@ void processSpecialKeys(int key, int x, int y) {
 
 int main(int argc, char** argv) {
 	// init GLUT and create Window
-
+	
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	glutInitWindowPosition(400, 50);
