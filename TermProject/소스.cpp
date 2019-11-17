@@ -122,15 +122,15 @@ void init() {
 
 void idle() {
 	// collision handling
-	for (int i = 0; i < spheres.size(); i++)
+	/*for (int i = 0; i < spheres.size(); i++)
 		for (int j = i + 1; j < spheres.size(); j++) {
 			spheres[i].collisionHandling(spheres[j]);
-			/*if (spheres[i].collisionDetection(spheres[j])) {
+			if (spheres[i].collisionDetection(spheres[j])) {
 				Vector3 position=Ballset.search(spheres[i].getCenter(), spheres[j].getCenter());
 				spheres[i].setCenter(position);
-			}*/
+			}
 
-		}
+		}*/
 
 	/* Implementation: boundary check */
 
