@@ -6,6 +6,7 @@
 #include <Windows.h>
 #include<math.h>
 #include"arrow.h"
+#include"coordinate.h"
 using namespace std;
 #define WIDTH 400
 #define HEIGHT 400
@@ -26,10 +27,14 @@ using namespace std;
 
 #define RAD 0.01745329
 
+
+
 vector<SolidSphere> spheres;
 Light* light;
 Line* line;
 Arrow shooter;
+Coordinate Ballset;
+
 
 
 int option = 0;
@@ -99,11 +104,11 @@ void init() {
 	line->setTime();
 	
 	srand((unsigned int)time(NULL));
-	SolidSphere sphere1(15, 100, 100); //처음에 READY되어 있는 공
+	SolidSphere sphere1(20, 100, 100); //처음에 READY되어 있는 공
 	sphere1.setCenter(READYX, READYY, READYZ);
 	spheres.push_back(sphere1);
 	
-	SolidSphere sphere2(15, 100, 100); //처음에 WAITING하고 있는 공
+	SolidSphere sphere2(20, 100, 100); //처음에 WAITING하고 있는 공
 	sphere2.setCenter(WAITINGX, WAITINGY, WAITINGZ);
 	spheres.push_back(sphere2);
 
@@ -111,20 +116,31 @@ void init() {
 	shooter.setMTL();
 	shooter.setPosition(0, 0, 0);
 
+	
+
 }
 
 void idle() {
 	// collision handling
 	for (int i = 0; i < spheres.size(); i++)
-		for (int j = i + 1; j < spheres.size(); j++)
+		for (int j = i + 1; j < spheres.size(); j++) {
 			spheres[i].collisionHandling(spheres[j]);
+			/*if (spheres[i].collisionDetection(spheres[j])) {
+				Vector3 position=Ballset.search(spheres[i].getCenter(), spheres[j].getCenter());
+				spheres[i].setCenter(position);
+			}*/
+
+		}
 
 	/* Implementation: boundary check */
 
 	for (int i = 0; i < spheres.size(); i++) {
 		//upper
 		if (spheres[i].getProperties()[0] + spheres[i].getCenter()[1] > boundaryY) {
-			spheres[i].setVelocity(spheres[i].getVelocity()[0], -spheres[i].getVelocity()[1], spheres[i].getVelocity()[2]);
+			spheres[i].setVelocity(0,0,0);
+			Vector3 center = spheres[i].getCenter();
+			spheres[i].setCenter(Ballset.upper(center));
+			cout << i << "번째 " << spheres[i].getCenter()[0] << ", " << spheres[i].getCenter()[1] << endl;
 		}
 
 
@@ -148,13 +164,13 @@ void renderScene() {
 
 	switch (option) {
 	case RIGHT:
-		if (shooter.getRotateAngle() <= 60)
-			shooter.Rotate(20);
+		if (shooter.getRotateAngle() <= 70)
+			shooter.Rotate(10);
 		option = STOP;
 		break;
 	case LEFT:
-		if (shooter.getRotateAngle() >= -60)
-			shooter.Rotate(-20);
+		if (shooter.getRotateAngle() >= -70)
+			shooter.Rotate(-10);
 		option = STOP;
 		break;
 	case SHOOT:
@@ -214,7 +230,7 @@ void processNormalKeys(unsigned char key, int x, int y) {
 		spheres.back().setVelocity(sin(shooter.getRotateAngle() * RAD), cos(shooter.getRotateAngle() * RAD), 0);
 		shooting_num = shooting_num + 1;
 		spheres.back().shootReady(READYX, READYY, READYZ);
-		SolidSphere new_sphere(15, 100, 100); //대기하는 곳에 만들어지는 공
+		SolidSphere new_sphere(20, 100, 100); //대기하는 곳에 만들어지는 공
 		new_sphere.setCenter(WAITINGX, WAITINGY, WAITINGZ);
 		spheres.push_back(new_sphere); 
 	}

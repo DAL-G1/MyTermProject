@@ -9,9 +9,10 @@ public:
 	SolidSphere(const SolidSphere& sph);
 	Vector3 getProperties() const;
 	bool collisionDetection(const SolidSphere& sph);
-	void collisionHandling(SolidSphere& sph);
+	void collisionHandling(const SolidSphere& sph);
 	void draw() const;
 	void shootReady(float x, float y, float z);
+	void stop(float x, float y, float z);
 
 private:
 	Vector3 properties;

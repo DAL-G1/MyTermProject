@@ -43,3 +43,9 @@ Vector3 operator*(const float s, const Vector3& vec3) {
 float dotProduct(const Vector3& v1, const Vector3& v2) {
 	return (v1.getXYZ()[0]* v2.getXYZ()[0])+ (v1.getXYZ()[1]*v2.getXYZ()[1])+(v1.getXYZ()[2]*v2.getXYZ()[2]);
 }
+
+bool operator==(const Vector3& v1, const Vector3& v2) {
+	if (v1[0] == v2[0] && v1[1] == v2[1] && v1[2] == v2[2])
+		return 1;
+	else return 0;
+}

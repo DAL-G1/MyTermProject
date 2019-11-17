@@ -24,9 +24,9 @@ bool SolidSphere::collisionDetection(const SolidSphere& sph) {
 	return false;
 }
 
-void SolidSphere::collisionHandling(SolidSphere& sph) {
+void SolidSphere::collisionHandling(const SolidSphere& sph) {
 	if (collisionDetection(sph)) {
-		float v_c1 = dotProduct(getVelocity() - sph.getVelocity(), getCenter() - sph.getCenter());
+		/*float v_c1 = dotProduct(getVelocity() - sph.getVelocity(), getCenter() - sph.getCenter());
 		float v_c2 = dotProduct(sph.getVelocity() - getVelocity(), sph.getCenter() - getCenter());
 		float c_c_sqaure = dotProduct(getCenter() - sph.getCenter(), getCenter() - sph.getCenter());
 		setVelocity(
@@ -38,7 +38,10 @@ void SolidSphere::collisionHandling(SolidSphere& sph) {
 			sph.getVelocity()[0] - (sph.getCenter()[0] - getCenter()[0]) * (v_c2 / c_c_sqaure),
 			sph.getVelocity()[1] - (sph.getCenter()[1] - getCenter()[1]) * (v_c2 / c_c_sqaure),
 			sph.getVelocity()[2] - (sph.getCenter()[2] - getCenter()[2]) * (v_c2 / c_c_sqaure)
-		);
+		);*/
+		setVelocity(0, 0, 0);
+		
+
 	}
 }
 
@@ -57,5 +60,9 @@ void SolidSphere::draw() const {
 	glPopMatrix();
 }
 void SolidSphere::shootReady(float x, float y, float z) {
+	setCenter(x, y, z);
+}
+
+void SolidSphere::stop(float x, float y, float z) {
 	setCenter(x, y, z);
 }
