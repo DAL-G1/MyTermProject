@@ -17,7 +17,7 @@ Vector3 SolidSphere::getProperties() const{
 
 bool SolidSphere::collisionDetection(const SolidSphere& sph) {
 	if (dotProduct(getCenter() - sph.getCenter(), getCenter() - sph.getCenter())
-		<= pow((getProperties()[0] + sph.getProperties()[0]),2)) {
+		< pow((getProperties()[0] + sph.getProperties()[0]),2)) {
 		return true;
 	}
 	else
@@ -66,3 +66,4 @@ void SolidSphere::shootReady(float x, float y, float z) {
 void SolidSphere::stop(float x, float y, float z) {
 	setCenter(x, y, z);
 }
+

@@ -43,7 +43,7 @@ Vector3 SolidShape3D::getVelocity() const {
 }
 
 void SolidShape3D::move() {
-	center = center + (1)*velocity;
+	center = center + (3)*velocity;
 }
 void SolidShape3D::setCyan(){
 	mtl.setAmbient(0.0, 0.05, 0.05, 1);

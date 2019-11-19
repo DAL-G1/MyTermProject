@@ -122,17 +122,23 @@ void init() {
 
 void idle() {
 	// collision handling
-	/*for (int i = 0; i < spheres.size(); i++)
-		for (int j = i + 1; j < spheres.size(); j++) {
-			spheres[i].collisionHandling(spheres[j]);
-			if (spheres[i].collisionDetection(spheres[j])) {
-				Vector3 position=Ballset.search(spheres[i].getCenter(), spheres[j].getCenter());
-				spheres[i].setCenter(position);
+	
+	if (shooting_num > 1) {
+		for (int i = 0; i < shooting_num-1; i++) {
+			if (spheres[shooting_num - 1].collisionDetection(spheres[i])) {
+				cout << shooting_num<<"detection" << endl;
+				spheres[shooting_num - 1].setVelocity(0, 0, 0);
+				Vector3 position = Ballset.search(spheres[shooting_num - 1].getCenter(), spheres[i].getCenter());  //쏘아진 공과 부딪힌 공의 중심좌표->search함수
+				spheres[shooting_num - 1].setCenter(position);  //쏘아진 공의 중심 좌표를 search함수에서 반환된 좌표값으로 설정
+				Ballset.setfull(position);  //쏘아진 공이 새로 위치한 곳의 좌표의 full값을 true로
+				cout << position[0] << ", " << position[1] << endl;
+			
 			}
-
-		}*/
-
+			
+		}
+	}
 	/* Implementation: boundary check */
+	
 
 	for (int i = 0; i < spheres.size(); i++) {
 		//upper
@@ -140,6 +146,7 @@ void idle() {
 			spheres[i].setVelocity(0,0,0);
 			Vector3 center = spheres[i].getCenter();
 			spheres[i].setCenter(Ballset.upper(center));
+			Ballset.setfull(Ballset.upper(center));
 			cout << i << "번째 " << spheres[i].getCenter()[0] << ", " << spheres[i].getCenter()[1] << endl;
 		}
 
@@ -162,6 +169,7 @@ void idle() {
 		line->setTime();
 
 		spheres[shooting_num].setVelocity(sin(shooter.getRotateAngle() * RAD), cos(shooter.getRotateAngle() * RAD), 0);
+		
 		shooting_num = shooting_num + 1;
 		spheres.back().shootReady(READYX, READYY, READYZ);
 		SolidSphere new_sphere(20, 100, 100); //대기하는 곳에 만들어지는 공
@@ -244,6 +252,7 @@ void processNormalKeys(unsigned char key, int x, int y) {
 		cout << line->getPosition2()[0] << endl;
 		line->setTime();
 		spheres[shooting_num].setVelocity(sin(shooter.getRotateAngle() * RAD), cos(shooter.getRotateAngle() * RAD), 0);
+		cout << "shooting: " << shooting_num << endl;
 		shooting_num = shooting_num + 1;
 		spheres.back().shootReady(READYX, READYY, READYZ);
 		SolidSphere new_sphere(20, 100, 100); //대기하는 곳에 만들어지는 공
