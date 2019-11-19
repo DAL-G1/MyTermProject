@@ -67,3 +67,20 @@ void SolidSphere::stop(float x, float y, float z) {
 	setCenter(x, y, z);
 }
 
+void SolidSphere::detectColor(std::vector<SolidSphere>& spheres, std::vector<int>& v, int c) {
+	std::vector<int>::iterator iter;
+	for (int i = 0; i < spheres.size() - 1; i++) {
+		if (1600 >= dotProduct(spheres[i].getCenter() - getCenter(), spheres[i].getCenter() - getCenter())&&velocity[1]==0)
+		{
+			iter = find(v.begin(), v.end(), i);
+			if (c==spheres[i].getColor()&&iter == v.end()) {//i가 v에 없다면
+				std::cout << c << std::endl;
+				std::cout << spheres[i].getColor() << std::endl;//왜 color에 쓰레기값이 들어가지?
+				std::cout << "푸시백" << std::endl;
+				v.push_back(i);
+				spheres[i].detectColor(spheres,v,c);
+			}
+			else {}
+		}
+	}
+}

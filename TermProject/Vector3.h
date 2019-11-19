@@ -3,7 +3,7 @@
 
 class Vector3
 {
-public:
+public:   
 	Vector3();
 	Vector3(float x, float y, float z);
 	void setXYZ(float x, float y, float z);

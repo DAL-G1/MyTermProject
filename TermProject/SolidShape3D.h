@@ -23,12 +23,13 @@ public:
 	void move();
 	void setMTL();
 	virtual void draw() const = 0;
-
+	int getColor();
 
 protected:
 	enum { RED, GREEN, CYAN, YELLOW };
 	Vector3 center;
 	Vector3 velocity;
 	Material mtl;
+	int color;
 };
 

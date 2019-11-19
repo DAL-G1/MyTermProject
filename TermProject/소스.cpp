@@ -137,6 +137,19 @@ void idle() {
 			
 		}
 	}
+	//disapear algorithm
+	vector<int> int_vec;
+	(&spheres.back() - 2)->detectColor(spheres, int_vec, (&spheres.back() - 2)->getColor());
+	if (int_vec.size() > 1) { cout << "2Å½Áö" << endl; }
+	if (int_vec.size() > 2) {
+		cout << "3Å½Áö" << endl;
+		for (int i = int_vec.size()-1; i >=0; i--) {
+			spheres.erase(spheres.begin()+i);
+			int_vec.pop_back();
+		}
+	}
+	//¿©±â¼­ º¤ÅÍ Áö¿ì±â
+	
 	/* Implementation: boundary check */
 	
 

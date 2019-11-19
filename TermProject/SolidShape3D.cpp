@@ -76,22 +76,28 @@ void SolidShape3D::setYellow() {
 
 void SolidShape3D::setMTL() {
 	//여기서 랜덤함수 돌리기
-	int color = (int)rand() % 4;
-	switch (color)
+	int color_random = (int)rand() % 4;
+	switch (color_random)
 	{
 	case RED:
 		setRed();
+		color = color_random;
 		break;
 	case GREEN:
 		setGreen();
+		color = color_random;
 		break;
 	case CYAN:
 		setCyan();
+		color = color_random;
 		break;
 	case YELLOW:
 		setYellow();
+		color = color_random;
 		break;
 		}
 
-
+}
+int SolidShape3D::getColor() {
+	return color;
 }
