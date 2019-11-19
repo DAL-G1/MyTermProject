@@ -146,7 +146,7 @@ void idle() {
 			spheres[i].setVelocity(0,0,0);
 			Vector3 center = spheres[i].getCenter();
 			spheres[i].setCenter(Ballset.upper(center));
-			Ballset.setfull(Ballset.upper(center));
+			Ballset.setfull(Ballset.upper(center));  //해당 위치 full변수 true로
 			cout << i << "번째 " << spheres[i].getCenter()[0] << ", " << spheres[i].getCenter()[1] << endl;
 		}
 
