@@ -1,6 +1,7 @@
 #pragma once
 #include"Vector3.h"
 #include<math.h>
+#include"SolidSphere.h"
 
 #define COORX 20
 #define COORY 34.7
@@ -17,12 +18,15 @@ public:
 	bool isfull(const Vector3& v);
 	void setfull(const Vector3& v);
 	void setempty(const Vector3& v);
+	void setSphere(const SolidSphere& sph);
 	Vector3 search(const Vector3& ball,const Vector3& collsionBall);
 	Vector3 upper(Vector3& ball);
+
 
 private:
 	enum { RED, GREEN, CYAN, YELLOW };
 	Vector3** coordinate;
 	bool** full;
+	SolidSphere** coorSphere;
 
 };

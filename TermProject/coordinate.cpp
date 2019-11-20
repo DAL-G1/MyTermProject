@@ -3,10 +3,12 @@
 Coordinate::Coordinate() {
 	coordinate = new Vector3 * [10];
 	full = new bool* [10];
+	coorSphere = new SolidSphere * [10];
 	for (int i = 0; i < 10; i++) {
 		if (i % 2 == 0) {
 			coordinate[i] = new Vector3[10];
 			full[i] = new bool[10];
+			coorSphere[i] = new SolidSphere[10];
 			for (int j = 0; j < 10; j++) {
 				coordinate[i][j] = Vector3(-180 + 2 * j * COORX, 180 - i * COORY, 0);
 				full[i][j] = false;
@@ -16,6 +18,7 @@ Coordinate::Coordinate() {
 		else {
 			coordinate[i] = new Vector3[9];
 			full[i] = new bool[9];
+			coorSphere[i] = new SolidSphere[9];
 			for (int j = 0; j < 9; j++) {
 				coordinate[i][j] = Vector3(-160 + 2 * j * COORX, 180 - i * COORY, 0);
 				full[i][j] = false;
@@ -30,9 +33,11 @@ Coordinate::~Coordinate() {
 	for (int i = 0; i < 10; i++) {
 		delete[]coordinate[i];
 		delete[]full[i];
+		delete[]coorSphere[i];
 	}
 	delete[]coordinate;
 	delete[]full;
+	delete[]coorSphere;
 
 }
 
@@ -70,7 +75,6 @@ Vector3 Coordinate::search(const Vector3& ball,const Vector3& collisionBall) {
 			min = distance; //거리 대입
 		}
 	}
-	//return position;  //가장 가까운 거리에 있는 공의 중심 좌표 return
 	int row = XYtoMatrix(position)[0];
 	int column = XYtoMatrix(position)[1];
 	return coordinate[row][column];
@@ -90,6 +94,12 @@ void Coordinate::setempty(const Vector3& v) {
 	full[x][y] = false;
 }
 
+void Coordinate::setSphere(const SolidSphere& sph) { 
+	int row = XYtoMatrix(sph.getCenter())[0];
+	int column = XYtoMatrix(sph.getCenter())[1];
+	coorSphere[row][column] = SolidSphere(sph);
+}
+
 Vector3 Coordinate::upper(Vector3& ball) {
 	float min = 2 * COORX;
 	int ballX=0;
@@ -100,7 +110,6 @@ Vector3 Coordinate::upper(Vector3& ball) {
 			min = distance;
 			ballX = x;
 		}
-		//ball.setXYZ(ballX, 180, 0);
 		
 	}
 	return Vector3(ballX, 180, 0);

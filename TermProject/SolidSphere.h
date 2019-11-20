@@ -5,6 +5,7 @@
 class SolidSphere : public SolidShape3D
 {
 public:
+	SolidSphere() {}
 	SolidSphere(float r, int sl, int st);
 	SolidSphere(const SolidSphere& sph);
 	Vector3 getProperties() const;
