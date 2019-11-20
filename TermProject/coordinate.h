@@ -3,7 +3,7 @@
 #include<math.h>
 
 #define COORX 20
-#define COORY 34.6410161
+#define COORY 34.7
 //#define DD 
 //
 //double COORX = 20.0;

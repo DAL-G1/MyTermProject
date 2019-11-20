@@ -70,10 +70,10 @@ Vector3 Coordinate::search(const Vector3& ball,const Vector3& collisionBall) {
 			min = distance; //거리 대입
 		}
 	}
-	return position;  //가장 가까운 거리에 있는 공의 중심 좌표 return
-	//int row = XYtoMatrix(position)[0];
-	//int column = XYtoMatrix(position)[1];
-	//return coordinate[row][column];
+	//return position;  //가장 가까운 거리에 있는 공의 중심 좌표 return
+	int row = XYtoMatrix(position)[0];
+	int column = XYtoMatrix(position)[1];
+	return coordinate[row][column];
 }
 
 void Coordinate::setfull(const Vector3& v) {
