@@ -24,5 +24,5 @@ private:
 	enum { RED, GREEN, CYAN, YELLOW };
 	Vector3** coordinate;
 	bool** full;
-	int** color;
+
 };
