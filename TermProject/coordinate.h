@@ -1,8 +1,13 @@
 #pragma once
 #include"Vector3.h"
+#include<math.h>
 
 #define COORX 20
-#define COORY 34.641016151
+#define COORY 34.6410161
+//#define DD 
+//
+//double COORX = 20.0;
+//double COORY = 20 * sqrt(3);
 
 class Coordinate {
 public:
@@ -16,6 +21,8 @@ public:
 	Vector3 upper(Vector3& ball);
 
 private:
+	enum { RED, GREEN, CYAN, YELLOW };
 	Vector3** coordinate;
 	bool** full;
+
 };

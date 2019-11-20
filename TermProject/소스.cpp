@@ -126,7 +126,7 @@ void idle() {
 	if (shooting_num > 1) {
 		for (int i = 0; i < shooting_num-1; i++) {
 			if (spheres[shooting_num - 1].collisionDetection(spheres[i])) {
-				cout << shooting_num<<"detection" << endl;
+				cout << shooting_num<<"detection " <<i<< endl;
 				spheres[shooting_num - 1].setVelocity(0, 0, 0);
 				Vector3 position = Ballset.search(spheres[shooting_num - 1].getCenter(), spheres[i].getCenter());  //쏘아진 공과 부딪힌 공의 중심좌표->search함수
 				spheres[shooting_num - 1].setCenter(position);  //쏘아진 공의 중심 좌표를 search함수에서 반환된 좌표값으로 설정
@@ -306,7 +306,7 @@ int main(int argc, char** argv) {
 	glutInitWindowSize(ALLWIDTH, ALLHEIGHT);
 	glutCreateWindow("Move spheres and handle collisions");
 	init();
-
+	cout << Ballset.XYtoMatrix(Vector3(-180+2*COORX, 180-4*COORY, 0))[0] << ", " << Ballset.XYtoMatrix(Vector3(-180+2*COORX, 180-4*COORY, 0))[1] << endl;
 	// register callbacks
 	glutSpecialFunc(processSpecialKeys);
 	glutKeyboardFunc(processNormalKeys);

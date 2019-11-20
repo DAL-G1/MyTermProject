@@ -10,6 +10,7 @@ Coordinate::Coordinate() {
 			for (int j = 0; j < 10; j++) {
 				coordinate[i][j] = Vector3(-180 + 2 * j * COORX, 180 - i * COORY, 0);
 				full[i][j] = false;
+
 			}
 		}
 		else {
@@ -36,12 +37,12 @@ Coordinate::~Coordinate() {
 }
 
 Vector3 Coordinate::XYtoMatrix(const Vector3& v) {
-	int row = (180.0 - v.getXYZ()[1]) / COORY;
+	int row = (180.0 - v.getXYZ()[1]) / COORY+0.5;
 	int column;
 	if (row % 2 == 0)
-		column = (180.0 + v.getXYZ()[0]) / (2 * COORX);
+		column = (180.0 + v.getXYZ()[0]) / (2.0 * COORX)+0.5;
 	else
-		column = (160.0 + v.getXYZ()[0]) / (2 * COORX);
+		column = (160.0 + v.getXYZ()[0]) / (2.0 * COORX)+0.5;
 	return Vector3(row, column, 0);
 }
 
@@ -70,10 +71,13 @@ Vector3 Coordinate::search(const Vector3& ball,const Vector3& collisionBall) {
 		}
 	}
 	return position;  //가장 가까운 거리에 있는 공의 중심 좌표 return
+	//int row = XYtoMatrix(position)[0];
+	//int column = XYtoMatrix(position)[1];
+	//return coordinate[row][column];
 }
 
 void Coordinate::setfull(const Vector3& v) {
-	int x, y;
+	int x,y;
 	x = XYtoMatrix(v)[0];
 	y = XYtoMatrix(v)[1];
 	full[x][y] = true;
@@ -101,3 +105,19 @@ Vector3 Coordinate::upper(Vector3& ball) {
 	}
 	return Vector3(ballX, 180, 0);
 }
+
+//void Coordinate::setColor(const Vector3& v, int ballcolor) {
+//	int row = XYtoMatrix(v)[0];
+//	int column = XYtoMatrix(v)[1];
+//	color[row][column] = ballcolor;
+//}
+//
+//void Coordinate::three_color(const Vector3& ball) {
+//	Vector3 near[6]; //공 주변의 6개 공
+//	near[0].setXYZ(ball[0] - COORX, ball[1] + COORY, 0);
+//	near[1].setXYZ(ball[0] + COORX, ball[1] + COORY, 0);
+//	near[2].setXYZ(ball[0] + 2 * COORX, ball[1], 0);
+//	near[3].setXYZ(ball[0] + COORX, ball[1] - COORY, 0);
+//	near[4].setXYZ(ball[0] - COORX, ball[1] - COORY, 0);
+//	near[5].setXYZ(ball[0] - 2 * COORX, ball[1], 0);
+//}
