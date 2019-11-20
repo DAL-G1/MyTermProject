@@ -8,6 +8,7 @@ SolidSphere::SolidSphere(float r, int sl, int st) : SolidShape3D() {
 
 SolidSphere::SolidSphere(const SolidSphere& sph) : SolidShape3D(sph) {
 	properties = sph.properties;
+
 }
 
 

@@ -264,7 +264,7 @@ void processNormalKeys(unsigned char key, int x, int y) {
 
 		cout << line->getPosition2()[0] << endl;
 		line->setTime();
-		spheres[shooting_num].setVelocity(sin(shooter.getRotateAngle() * RAD), cos(shooter.getRotateAngle() * RAD), 0);
+		(&spheres.back()-1)->setVelocity(sin(shooter.getRotateAngle() * RAD), cos(shooter.getRotateAngle() * RAD), 0);
 		cout << "shooting: " << shooting_num << endl;
 		shooting_num = shooting_num + 1;
 		spheres.back().shootReady(READYX, READYY, READYZ);
