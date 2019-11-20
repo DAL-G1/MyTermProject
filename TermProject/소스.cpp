@@ -125,15 +125,7 @@ void idle() {
 	
 	if (shooting_num > 1) {
 		for (int i = 0; i < shooting_num-1; i++) {
-			//if (spheres[shooting_num - 1].collisionDetection(spheres[i])) {
-			//	cout << shooting_num<<"detection " <<i<< endl;
-			//	spheres[shooting_num - 1].setVelocity(0, 0, 0);
-			//	Vector3 position = Ballset.search(spheres[shooting_num - 1].getCenter(), spheres[i].getCenter());  //쏘아진 공과 부딪힌 공의 중심좌표->search함수
-			//	spheres[shooting_num - 1].setCenter(position);  //쏘아진 공의 중심 좌표를 search함수에서 반환된 좌표값으로 설정
-			//	Ballset.setfull(position);  //쏘아진 공이 새로 위치한 곳의 좌표의 full값을 true로
-			//	cout << position[0] << ", " << position[1] << endl;
-			//
-			//}
+			
 			if ((spheres.end()-3)->collisionDetection(spheres[i])) {
 				cout << "detection " << i << endl;
 				(spheres.end()-3)->setVelocity(0, 0, 0);
