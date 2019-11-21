@@ -95,10 +95,11 @@ void Coordinate::setempty(const Vector3& v) {
 	full[x][y] = false;
 }
 
-void Coordinate::setSphere(const SolidSphere& sph) {
+void Coordinate::setSphere(SolidSphere& sph) {
 	int row = XYtoMatrix(sph.getCenter())[0];
 	int column = XYtoMatrix(sph.getCenter())[1];
 	coorSphere[row][column] = SolidSphere(sph);
+	sph.setCoor(row, column, 0);
 }
 
 Vector3 Coordinate::upper(Vector3& ball) {
@@ -117,3 +118,9 @@ Vector3 Coordinate::upper(Vector3& ball) {
 	return Vector3(ballX, 180, 0);
 }
 
+bool** Coordinate::getfull() {
+	return full;
+}
+SolidSphere** Coordinate::getCoorSphere() {
+	return coorSphere;
+}

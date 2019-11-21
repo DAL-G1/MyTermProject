@@ -3,6 +3,8 @@
 #include "Material.h"
 #include "Vector3.h"
 
+enum { RED, GREEN, CYAN, YELLOW };
+
 class SolidShape3D
 {
 public:
@@ -23,12 +25,19 @@ public:
 	void move();
 	void setMTL();
 	virtual void draw() const = 0;
-
+	int getColor();
+	void setColor(int c);
+	bool getErs();
+	void setErs();
+	void setCoor(float x, float y, float z);
+	Vector3 getCoor();
 
 protected:
-	enum { RED, GREEN, CYAN, YELLOW };
 	Vector3 center;
 	Vector3 velocity;
 	Material mtl;
+	int color;
+	bool ers;
+	Vector3 coor;
 };
 

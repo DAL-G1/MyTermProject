@@ -1,7 +1,6 @@
 #include "SolidSphere.h"
 #include <math.h>
 
-
 SolidSphere::SolidSphere(float r, int sl, int st) : SolidShape3D() {
 	properties.setXYZ(r, sl, st);
 }
@@ -67,3 +66,17 @@ void SolidSphere::stop(float x, float y, float z) {
 	setCenter(x, y, z);
 }
 
+void SolidSphere::detectColor(Coordinate &ballset) {
+	int row = (int)coor.getXYZ()[0];
+	int col = (int)coor.getXYZ()[1];
+	if (row % 2 == 0) {
+		if ((0<=row - 1<=10 && 0<=col< && ballset.getfull()[row - 1][col] == true))
+			ballset.getCoorSphere()[row - 1][col].setErs();
+		
+
+		
+	}
+	else {
+
+	}
+}

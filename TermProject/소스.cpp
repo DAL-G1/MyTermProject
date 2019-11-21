@@ -140,16 +140,16 @@ void idle() {
 		}
 	}
 	//disapear algorithm
-	//vector<int> int_vec;
-	//(&spheres.back() - 2)->detectColor(spheres, int_vec, (&spheres.back() - 2)->getColor());
-	//if (int_vec.size() > 1) { cout << "2탐지" << endl; }
-	//if (int_vec.size() > 2) {
-	//	cout << "3탐지" << endl;
-	//	for (int i = int_vec.size()-1; i >=0; i--) {
-	//		spheres.erase(spheres.begin()+i);
-	//		int_vec.pop_back();
-	//	}
-	//}
+	vector<int> int_vec;
+	(&spheres.back() - 2)->detectColor(spheres, int_vec, (&spheres.back() - 2)->getColor());
+	if (int_vec.size() > 1) { cout << "2탐지" << endl; }
+	if (int_vec.size() > 2) {
+		cout << "3탐지" << endl;
+		for (int i = int_vec.size()-1; i >=0; i--) {
+			spheres.erase(spheres.begin()+i);
+			int_vec.pop_back();
+		}
+	}
 	//여기서 벡터 지우기
 	
 	/* Implementation: boundary check */
@@ -182,11 +182,10 @@ void idle() {
 		cout << "time-over-shoot" << endl;
 		cout << line->getline_long() << endl;
 		option = SHOOT;
-		line->setTime();
-
-		spheres[shooting_num].setVelocity(sin(shooter.getRotateAngle() * RAD), cos(shooter.getRotateAngle() * RAD), 0);
 		
-		shooting_num = shooting_num + 1;
+		line->setTime();
+		(&spheres.back() - 1)->setVelocity(sin(shooter.getRotateAngle() * RAD), cos(shooter.getRotateAngle() * RAD), 0);
+		cout << "shooting: " << shooting_num << endl;
 		spheres.back().shootReady(READYX, READYY, READYZ);
 		SolidSphere new_sphere(20, 100, 100); //대기하는 곳에 만들어지는 공
 		new_sphere.setCenter(WAITINGX, WAITINGY, WAITINGZ);
@@ -265,15 +264,13 @@ void processNormalKeys(unsigned char key, int x, int y) {
 	{	cout << "shoot" << endl;
 		option = SHOOT;
 
-		cout << line->getPosition2()[0] << endl;
 		line->setTime();
-		spheres[shooting_num].setVelocity(sin(shooter.getRotateAngle() * RAD), cos(shooter.getRotateAngle() * RAD), 0);
+		(&spheres.back() - 1)->setVelocity(sin(shooter.getRotateAngle() * RAD), cos(shooter.getRotateAngle() * RAD), 0);
 		cout << "shooting: " << shooting_num << endl;
-		shooting_num = shooting_num + 1;
 		spheres.back().shootReady(READYX, READYY, READYZ);
 		SolidSphere new_sphere(20, 100, 100); //대기하는 곳에 만들어지는 공
 		new_sphere.setCenter(WAITINGX, WAITINGY, WAITINGZ);
-		spheres.push_back(new_sphere); 
+		spheres.push_back(new_sphere);
 	}
 	default:
 		break;
