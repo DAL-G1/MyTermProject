@@ -15,7 +15,6 @@ public:
 	void draw() const;
 	void shootReady(float x, float y, float z);
 	void stop(float x, float y, float z);
-	void detectColor(Coordinate &ballset);
 
 private:
 	Vector3 properties;

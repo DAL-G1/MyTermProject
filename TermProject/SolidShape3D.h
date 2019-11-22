@@ -28,8 +28,9 @@ public:
 	int getColor();
 	void setColor(int c);
 	bool getErs();
-	void setErs();
+	void setErs(bool d);
 	void setCoor(float x, float y, float z);
+	void setCoor(const Vector3& c);
 	Vector3 getCoor();
 
 protected:

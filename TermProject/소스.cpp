@@ -7,6 +7,8 @@
 #include<math.h>
 #include"arrow.h"
 #include"coordinate.h"
+#include "eraseThis.h"
+#include <algorithm>
 using namespace std;
 #define WIDTH 400
 #define HEIGHT 400
@@ -140,16 +142,22 @@ void idle() {
 		}
 	}
 	//disapear algorithm
-	vector<int> int_vec;
-	(&spheres.back() - 2)->detectColor(spheres, int_vec, (&spheres.back() - 2)->getColor());
-	if (int_vec.size() > 1) { cout << "2Å½Áö" << endl; }
-	if (int_vec.size() > 2) {
-		cout << "3Å½Áö" << endl;
-		for (int i = int_vec.size()-1; i >=0; i--) {
-			spheres.erase(spheres.begin()+i);
-			int_vec.pop_back();
+	
+	Ballset.detectColor((&spheres.back() - 2), (&spheres.back() - 2)->getColor());
+	eraseThis erT;
+	vector<SolidSphere>::iterator it;
+	if (count_if(spheres.begin(), spheres.end(), erT) > 2) {
+		while ((it = find_if(spheres.begin(), spheres.end(), erT)) != spheres.end()) {
+			spheres.erase(it);
 		}
 	}
+	else {
+		while ((it = find_if(spheres.begin(), spheres.end(), erT)) != spheres.end()) {
+			it->setErs(false);
+		}
+
+	}
+	
 	//¿©±â¼­ º¤ÅÍ Áö¿ì±â
 	
 	/* Implementation: boundary check */

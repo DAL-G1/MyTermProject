@@ -95,12 +95,19 @@ void Coordinate::setempty(const Vector3& v) {
 	full[x][y] = false;
 }
 
+void Coordinate::setSphere(SolidSphere* sph) {
+	int row = XYtoMatrix(sph->getCenter())[0];
+	int column = XYtoMatrix(sph->getCenter())[1];
+	coorSphere[row][column] = SolidSphere(sph);
+	sph->setCoor(row, column, 0);
+}
 void Coordinate::setSphere(SolidSphere& sph) {
 	int row = XYtoMatrix(sph.getCenter())[0];
 	int column = XYtoMatrix(sph.getCenter())[1];
 	coorSphere[row][column] = SolidSphere(sph);
 	sph.setCoor(row, column, 0);
 }
+
 
 Vector3 Coordinate::upper(Vector3& ball) {
 	float min = 2 * COORX;
@@ -123,4 +130,51 @@ bool** Coordinate::getfull() {
 }
 SolidSphere** Coordinate::getCoorSphere() {
 	return coorSphere;
+}
+void Coordinate::detectColor(SolidSphere* sph,int color) {
+	std::vector<Vector3> near;
+	Vector3 ball = sph->getCenter();
+	if (-180 <= ball[0] - COORX <= 180 && -180 <= ball[1] + COORY <= 180)
+	{
+		Vector3 near1;//
+		near1.setXYZ(ball[0] - COORX, ball[1] + COORY, 0);
+	}
+	if (-180 <= ball[0] + COORX <= 180 && -180 <= ball[1] + COORY <= 180)
+	{
+		Vector3 near2;//
+		near2.setXYZ(ball[0] + COORX, ball[1] + COORY, 0);
+	}
+	if (-180 <= ball[0] + 2 * COORX <= 180 && -180 <= ball[1] <= 180)
+	{
+		Vector3 near3;//
+		near3.setXYZ(ball[0] + 2 * COORX, ball[1], 0);
+	}
+	if (-180 <= ball[0] + COORX <= 180 && -180 <= ball[1] - COORY <= 180)
+	{
+		Vector3 near4;
+		near4.setXYZ(ball[0] + COORX, ball[1] - COORY, 0);
+	}
+	if (-180 <= ball[0] - COORX <= 180 && -180 <= ball[1] - COORY <= 180)
+	{
+		Vector3 near5;
+		near5.setXYZ(ball[0] - COORX, ball[1] - COORY, 0);
+	}
+	if (-180 <= ball[0] - 2 * COORX <= 180 && -180 <= ball[1] <= 180)
+	{
+		Vector3 near6;
+		near6.setXYZ(ball[0] - 2 * COORX, ball[1], 0);
+	}
+	for (int i = 0; i < near.size(); i++) {
+		int row = XYtoMatrix(near[i])[0];
+		int column = XYtoMatrix(near[i])[1];
+		if (full[row][column]) {
+			if (coorSphere[row][column].getColor() == color && coorSphere[row][column].getErs() == false)
+			{
+				coorSphere[row][column].setErs(true);
+				detectColor(&(coorSphere[row][column]),color);
+			}
+		}
+	}
+
+
 }

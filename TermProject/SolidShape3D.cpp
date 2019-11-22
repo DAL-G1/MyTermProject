@@ -14,7 +14,7 @@ SolidShape3D::SolidShape3D(const SolidShape3D& sh3d) {
 	mtl.setMTL(sh3d.mtl);
 	setColor(sh3d.color);
 	setErs(sh3d.ers);
-	setCoor(sh3d.getCoor[0], sh3d.getCoor[1], sh3d.getCoor[2]);
+	setCoor(sh3d.coor);
 }
 
 void SolidShape3D::setCenter(float x, float y, float z) {
@@ -84,15 +84,19 @@ void SolidShape3D::setColor(int c) {
 	color = c;
 }
 bool SolidShape3D::getErs() {
-	return color;
+	return ers;
 }
-void SolidShape3D::setErs() {
-	ers = true;
+void SolidShape3D::setErs(bool d) {
+	ers = d;
 }
+
 void SolidShape3D::setCoor(float x, float y, float z) {
 	coor[0] = x;
 	coor[1] = y;
 	coor[2] = z;
+}
+void SolidShape3D::setCoor(const Vector3& c) {
+	coor = c;
 }
 Vector3 SolidShape3D::getCoor() {
 	return coor;

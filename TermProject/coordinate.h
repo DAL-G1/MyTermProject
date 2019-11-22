@@ -19,16 +19,15 @@ public:
 	void setfull(const Vector3& v);
 	void setempty(const Vector3& v);
 	void setSphere(SolidSphere& sph);
+	void setSphere(SolidSphere* sph);
 	Vector3 search(const Vector3& ball,const Vector3& collsionBall);
 	Vector3 upper(Vector3& ball);
 	bool** getfull();
 	SolidSphere** getCoorSphere();
-
+	void detectColor(SolidSphere* sph,int color);
 
 private:
 	enum { RED, GREEN, CYAN, YELLOW };
-	Vector3** coordinate;
 	bool** full;
-	SolidSphere** coorSphere;
 
 };
