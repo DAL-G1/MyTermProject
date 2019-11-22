@@ -147,7 +147,7 @@ void idle() {
 	vector<SolidSphere>::iterator it;
 	eraseThis erT;
 
-	ers_vec = Ballset.detectColor(*(spheres.end() - 2), (spheres.end() - 2)->getColor());
+	Ballset.detectColor(*(spheres.end() - 2), ers_vec,(spheres.end() - 2)->getColor());
 	for (int i = 0; i < spheres.size(); i++) {
 		Vector3 position = spheres[i].getCenter();
 		for (int j = 0; j < ers_vec.size(); j++) {
