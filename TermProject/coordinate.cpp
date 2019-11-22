@@ -122,37 +122,37 @@ void Coordinate::detectColor(SolidSphere* sph, int color) {
 	std::vector<Vector3> near;
 	std::vector<Vector3> ers_vec;
 	Vector3 ball = sph->getCenter();
-	if (-180 <= ball[0] - COORX <= 180 && -180 <= ball[1] + COORY <= 180)
+	if (-180 <= ball[0] - COORX && ball[0] - COORX <= 180 && -180 <= ball[1] + COORY && ball[1] + COORY <= 180)
 	{
 		Vector3 near1;
 		near1.setXYZ(ball[0] - COORX, ball[1] + COORY, 0);
 		near.push_back(near1);
 	}
-	if (-180 <= ball[0] + COORX <= 180 && -180 <= ball[1] + COORY <= 180)
+	if (-180 <= ball[0] + COORX && ball[0] + COORX <= 180 && -180 <= ball[1] + COORY && ball[1] + COORY <= 180)
 	{
 		Vector3 near2;
 		near2.setXYZ(ball[0] + COORX, ball[1] + COORY, 0);
 		near.push_back(near2);
 	}
-	if (-180 <= ball[0] + 2 * COORX <= 180 && -180 <= ball[1] <= 180)
+	if (-180 <= ball[0] + 2 * COORX && ball[0] + 2 * COORX <= 180 && -180 <= ball[1] && ball[1] <= 180)
 	{
 		Vector3 near3;
 		near3.setXYZ(ball[0] + 2 * COORX, ball[1], 0);
 		near.push_back(near3);
 	}
-	if (-180 <= ball[0] + COORX <= 180 && -180 <= ball[1] - COORY <= 180)
+	if (-180 <= ball[0] + COORX && ball[0] + COORX <= 180 && -180 <= ball[1] - COORY && ball[1] - COORY <= 180)
 	{
 		Vector3 near4;
 		near4.setXYZ(ball[0] + COORX, ball[1] - COORY, 0);
 		near.push_back(near4);
 	}
-	if (-180 <= ball[0] - COORX <= 180 && -180 <= ball[1] - COORY <= 180)
+	if (-180 <= ball[0] - COORX && ball[0] - COORX <= 180 && -180 <= ball[1] - COORY && ball[1] - COORY <= 180)
 	{
 		Vector3 near5;
 		near5.setXYZ(ball[0] - COORX, ball[1] - COORY, 0);
 		near.push_back(near5);
 	}
-	if (-180 <= ball[0] - 2 * COORX <= 180 && -180 <= ball[1] <= 180)
+	if (-180 <= ball[0] - 2 * COORX && ball[0] - 2 * COORX <= 180 && -180 <= ball[1] && ball[1] <= 180)
 	{
 		Vector3 near6;
 		near6.setXYZ(ball[0] - 2 * COORX, ball[1], 0);
@@ -164,8 +164,10 @@ void Coordinate::detectColor(SolidSphere* sph, int color) {
 		if (full[row][column]) {
 			if (coorSphere[row][column].getColor() == color && coorSphere[row][column].getErs() == false)
 			{
+				Vector3 cErs;
+				cErs.setXYZ(coorSphere[row][column].getCenter[0], coorSphere[row][column].getCenter[1], 0);
+				ers_vec.push_back(cErs);
 				coorSphere[row][column].setErs(true);
-
 				detectColor(&(coorSphere[row][column]), color);
 			}
 		}

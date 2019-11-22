@@ -3,7 +3,7 @@
 SolidShape3D::SolidShape3D() {
 	center.setXYZ(0, 0, 0);
 	velocity.setXYZ(0, 0, 0);
-	setErs(true);
+	setErs(false);
 	setMTL();
 }
 
