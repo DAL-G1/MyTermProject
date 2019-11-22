@@ -3,15 +3,16 @@
 SolidShape3D::SolidShape3D() {
 	center.setXYZ(0, 0, 0);
 	velocity.setXYZ(0, 0, 0);
-
+	setErs(true);
 	setMTL();
 }
 
 SolidShape3D::SolidShape3D(const SolidShape3D& sh3d) {
 	setCenter(sh3d.center);
 	setVelocity(sh3d.velocity);
-	
+	setErs(sh3d.ers);
 	mtl.setMTL(sh3d.mtl);
+	setColor(sh3d.color);
 }
 
 void SolidShape3D::setCenter(float x, float y, float z) {
@@ -73,22 +74,38 @@ void SolidShape3D::setYellow() {
 	mtl.setEmission(0.1, 0.1, 0.1, 1);
 	mtl.setShininess(10);
 }
+int SolidShape3D::getColor() {
+	return color;
+}
+void SolidShape3D::setColor(int c) {
+	color = c;
+}
+bool SolidShape3D::getErs() {
+	return ers;
+}
+void SolidShape3D::setErs(bool e) {
+	ers = e;
+}
 
 void SolidShape3D::setMTL() {
 	//여기서 랜덤함수 돌리기
-	int color = (int)rand() % 4;
-	switch (color)
+	int c = (int)rand() % 4;
+	switch (c)
 	{
 	case RED:
+		color = RED;
 		setRed();
 		break;
 	case GREEN:
+		color = GREEN;
 		setGreen();
 		break;
 	case CYAN:
+		color = CYAN;
 		setCyan();
 		break;
 	case YELLOW:
+		color = YELLOW;
 		setYellow();
 		break;
 		}
