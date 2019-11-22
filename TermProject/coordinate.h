@@ -21,7 +21,7 @@ public:
 	void setSphere(const SolidSphere& sph);
 	Vector3 search(const Vector3& ball,const Vector3& collsionBall);
 	Vector3 upper(Vector3& ball);
-	void detectColor(SolidSphere* sph, int color);
+	std::vector<Vector3> detectColor(SolidSphere& sph, int color);
 
 
 private:

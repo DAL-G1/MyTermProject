@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClCompile Include="arrow.cpp" />
     <ClCompile Include="coordinate.cpp" />
+    <ClCompile Include="eraseThis.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -142,6 +143,7 @@
   <ItemGroup>
     <ClInclude Include="arrow.h" />
     <ClInclude Include="coordinate.h" />
+    <ClInclude Include="eraseThis.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="SolidShape3D.h" />

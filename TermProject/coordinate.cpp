@@ -118,10 +118,10 @@ Vector3 Coordinate::upper(Vector3& ball) {
 	return Vector3(ballX, 180, 0);
 }
 
-void Coordinate::detectColor(SolidSphere* sph, int color) {
+std::vector<Vector3> Coordinate::detectColor(SolidSphere& sph, int color) {
 	std::vector<Vector3> near;
 	std::vector<Vector3> ers_vec;
-	Vector3 ball = sph->getCenter();
+	Vector3 ball = sph.getCenter();
 	if (-180 <= ball[0] - COORX && ball[0] - COORX <= 180 && -180 <= ball[1] + COORY && ball[1] + COORY <= 180)
 	{
 		Vector3 near1;
@@ -165,11 +165,12 @@ void Coordinate::detectColor(SolidSphere* sph, int color) {
 			if (coorSphere[row][column].getColor() == color && coorSphere[row][column].getErs() == false)
 			{
 				Vector3 cErs;
-				cErs.setXYZ(coorSphere[row][column].getCenter[0], coorSphere[row][column].getCenter[1], 0);
+				cErs.setXYZ(coorSphere[row][column].getCenter()[0], coorSphere[row][column].getCenter()[1], 0);
 				ers_vec.push_back(cErs);
 				coorSphere[row][column].setErs(true);
-				detectColor(&(coorSphere[row][column]), color);
+				detectColor((coorSphere[row][column]), color);
 			}
 		}
 	}
+	return ers_vec;
 }
